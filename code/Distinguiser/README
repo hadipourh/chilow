@@ -1,1 +1,6 @@
-
+- 4 nested loops exhuatively search for the distinguisher with 4 active bits for a given number of rounds.
+- Run te code as "python3 ChiLow32-2subset-Exaustive.py TargetRoundNumber".
+- The linear layer in the last round can be ommitted by the following changes:
+    1- In line 88: replace "model.setObjective(s.sum(ROUNDS, '*'), GRB.MINIMIZE)" with "model.setObjective(c.sum(ROUNDS-1, '*'), GRB.MINIMIZE)".
+    2- In lines 99 and 101: replace "s[ROUNDS, i]" with "c[ROUNDS-1, i]".
+- The trivial method for searching distinguishers with more number of active bits is to deepne the nested loops as well as updating line 80 accordingly and adding "model.addConstr(s[0, ind_i] == 1)" after line 84.
