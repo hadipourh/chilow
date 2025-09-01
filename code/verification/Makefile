@@ -124,23 +124,48 @@ benchmark: release
 	@echo "Running performance benchmark..."
 	time ./$(BUILD_DIR)/$(TARGET)
 
-# Memory check (requires valgrind)
+# Memory check (requires valgrind - Linux only)
 .PHONY: memcheck
 memcheck: debug
 	@echo "Running memory check..."
-	valgrind --leak-check=full --show-leak-kinds=all ./$(BUILD_DIR)/$(DEBUG_TARGET)
+	@if command -v valgrind >/dev/null 2>&1; then \
+		valgrind --leak-check=full --show-leak-kinds=all ./$(BUILD_DIR)/$(DEBUG_TARGET); \
+	else \
+		echo "valgrind not found or not supported on this platform."; \
+		echo "Note: valgrind only works on Linux systems."; \
+		echo "On macOS: Use Xcode Instruments or AddressSanitizer (built into debug builds)"; \
+		echo "On Linux: sudo apt-get install valgrind"; \
+		echo ""; \
+		echo "Alternative: This debug build already includes AddressSanitizer:"; \
+		echo "Running debug build with AddressSanitizer..."; \
+		./$(BUILD_DIR)/$(DEBUG_TARGET); \
+	fi
 
 # Static analysis (requires cppcheck)
 .PHONY: analyze
 analyze:
 	@echo "Running static analysis..."
-	cppcheck --enable=all --std=c99 $(SOURCES)
+	@if command -v cppcheck >/dev/null 2>&1; then \
+		cppcheck --enable=all --std=c99 --suppress=missingIncludeSystem --suppress=unusedFunction --suppress=staticFunction $(SOURCES); \
+	else \
+		echo "cppcheck not found. Please install cppcheck to run static analysis."; \
+		echo "On macOS: brew install cppcheck"; \
+		echo "On Ubuntu/Debian: sudo apt-get install cppcheck"; \
+		exit 1; \
+	fi
 
 # Format code (requires clang-format)
 .PHONY: format
 format:
 	@echo "Formatting code..."
-	clang-format -i -style="{BasedOnStyle: LLVM, IndentWidth: 4, ColumnLimit: 100}" $(SOURCES)
+	@if command -v clang-format >/dev/null 2>&1; then \
+		clang-format -i -style="{BasedOnStyle: LLVM, IndentWidth: 4, ColumnLimit: 100}" $(SOURCES); \
+	else \
+		echo "clang-format not found. Please install clang-format to format code."; \
+		echo "On macOS: brew install clang-format"; \
+		echo "On Ubuntu/Debian: sudo apt-get install clang-format"; \
+		exit 1; \
+	fi
 
 # Integral cryptanalysis tool
 .PHONY: integral
@@ -162,22 +187,31 @@ distclean: clean
 # Show help
 .PHONY: help
 help:
-	@echo "Available targets:"
+	@echo "ChiLow Independent Implementation - Build System"
+	@echo "==============================================="
+	@echo ""
+	@echo "Core targets:"
 	@echo "  all         - Build release version (default)"
 	@echo "  release     - Build optimized release version"
 	@echo "  debug       - Build debug version with sanitizers"
 	@echo "  test        - Run comprehensive test suite"
-	@echo "  run         - Run basic implementation"
-	@echo "  test-original - Run original implementation"
-	@echo "  compare     - Compare new and original outputs"
-	@echo "  benchmark   - Run performance benchmark"
-	@echo "  memcheck    - Run memory check with valgrind"
-	@echo "  analyze     - Run static analysis with cppcheck"
-	@echo "  format      - Format code with clang-format"
+	@echo "  example     - Run usage examples"
 	@echo "  integral    - Run integral cryptanalysis tool"
+	@echo ""
+	@echo "Development targets:"
+	@echo "  benchmark   - Run performance benchmark"
+	@echo "  memcheck    - Run memory check (uses AddressSanitizer on macOS, valgrind on Linux)"
+	@echo "  analyze     - Run static analysis (requires cppcheck)"
+	@echo "  format      - Format code (requires clang-format)"
+	@echo ""
+	@echo "Utility targets:"
 	@echo "  clean       - Clean build artifacts"
-	@echo "  distclean   - Clean everything"
 	@echo "  help        - Show this help message"
+	@echo ""
+	@echo "Optional dependencies (install if needed):"
+	@echo "  cppcheck     - brew install cppcheck (static analysis)"
+	@echo "  clang-format - brew install clang-format (code formatting)"
+	@echo "  valgrind     - Linux only (brew install not supported on macOS)"
 
 # Dependencies
 $(BUILD_DIR)/chilow.o: chilow.c
