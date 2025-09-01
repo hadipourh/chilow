@@ -2,7 +2,7 @@
  * ChiLow Independent Implementation
  * 
  * A clean, unified implementation of the ChiLow cryptographic primitive
- * Following standard C programming practices with reduced semantic complexity
+ * Following standard C programming practices. 
  * 
  * Author: Hosein Hadipour <hsn.hadipour@gmail.com>
  * Date: September 2025
