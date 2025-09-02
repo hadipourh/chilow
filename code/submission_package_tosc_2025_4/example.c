@@ -2,7 +2,6 @@
  * Example usage of ChiLow Independent Implementation
  * Demonstrates how to use the implementation as a library
  * 
- * Author: Hosein Hadipour <hsn.hadipour@gmail.com>
  * Date: September 2025
  * 
  * This program is free software: you can redistribute it and/or modify

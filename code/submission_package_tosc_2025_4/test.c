@@ -4,7 +4,6 @@
  * Comprehensive tests to verify the implementation against known test vectors
  * and compare with the original implementation
  * 
- * Author: Hosein Hadipour <hsn.hadipour@gmail.com>
  * Date: September 2025
  * 
  * This program is free software: you can redistribute it and/or modify

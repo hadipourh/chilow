@@ -5,7 +5,6 @@ Test script for all ChiLow integral distinguishers claimed in the paper.
 This script runs the integral cryptanalysis tool for all 12 distinguishers
 and verifies that they work as expected.
 
-Author: Hosein Hadipour <hsn.hadipour@gmail.com>
 Date: September 2025
 """
 

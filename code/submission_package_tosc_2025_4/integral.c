@@ -1,7 +1,7 @@
 /*
  * ChiLow Integral Cryptanalysis Tool - Simplified Version
  * 
- * Copyright (C) 2025 Hosein Hadipour <hsn.hadipour@gmail.com>
+ * Copyright (C) 2025
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -242,7 +242,6 @@ int main(int argc, char* argv[]) {
     
     printf("ChiLow Integral Cryptanalysis Tool\n");
     printf("===================================\n");
-    printf("Author: Hosein Hadipour <hsn.hadipour@gmail.com>\n");
     printf("License: GPL v3.0\n\n");
     
     int rounds, repetitions, use_40bit = 0;

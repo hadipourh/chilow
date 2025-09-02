@@ -1,5 +1,4 @@
 # Makefile for ChiLow Independent Implementation
-# Author: Hosein Hadipour <hsn.hadipour@gmail.com>
 # Date: September 2025
 # 
 # This program is free software: you can redistribute it and/or modify
