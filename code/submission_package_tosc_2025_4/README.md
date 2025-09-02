@@ -2,9 +2,11 @@
 
 A complete, independent implementation of the ChiLow cryptographic primitive with comprehensive testing and integral cryptanalysis tools.
 
-**Author:** Hosein Hadipour <hsn.hadipour@gmail.com>  
+**Author:** ...
 **License:** GNU General Public License v3.0  
 **Date:** September 2025
+
+This package also includes the code for finding distinguishers: milp.py
 
 ## Overview
 
